@@ -11,7 +11,7 @@ No backend, no build step, no dependencies beyond Google Fonts.
 Files
 index.html - page structure and screen markup
 styles.css - all styling
-quiz.js - question/geography data, state, and the intro → geo → quiz → calculating → result flow
+quiz.js - question/geography data, state, and the intro -> geo -> quiz -> calculating -> result flow
 certificate.js - renders the result as a downloadable PNG via canvas; loads after quiz.js and reuses its globals (question categories, current score, radar math)
 Running it
 
