@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Trace of Newton</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="card">
+
+  <div id="screen-intro">
+    <h1>Are you related to Isaac Newton?</h1>
+    <p class="lede">A short trace, built from the habits, obsessions and quirks he was known for &mdash; plus a nod to where you're from. Answer honestly; there are no right answers, only familiar ones.</p>
+    <p class="best-trace hidden" id="best-trace-line"></p>
+    <button class="btn" id="btn-start">Begin the trace</button>
+  </div>
+
+  <div id="screen-geo" class="hidden">
+    <div class="meta-row"><span id="geo-step-label">Step 1 of 2</span></div>
+    <div class="q-text" id="geo-text">Which continent are you from?</div>
+    <div class="options" id="geo-options"></div>
+  </div>
+
+  <div id="screen-quiz" class="hidden">
+    <div class="arc-wrap">
+      <svg id="arc" viewBox="0 0 300 60" preserveAspectRatio="none">
+        <path id="arcTrack" class="arc-track" d="M10,52 Q150,-6 290,52"></path>
+        <path id="arcFill" class="arc-fill" d="M10,52 Q150,-6 290,52"></path>
+        <circle id="appleDot" class="apple-dot" r="4.5" cx="10" cy="52"></circle>
+      </svg>
+    </div>
+    <div class="meta-row"><span id="q-count">Question 1 of 16</span></div>
+    <div class="q-text" id="q-text"></div>
+    <div class="options" id="q-options"></div>
+  </div>
+
+  <div id="screen-calc" class="hidden">
+    <div class="calc-wrap">
+      <svg class="orbit-svg" viewBox="0 0 120 120">
+        <circle class="orbit-track" cx="60" cy="60" r="46"></circle>
+        <g class="orbit-anim"><circle class="orbit-dot" cx="60" cy="14" r="5"></circle></g>
+      </svg>
+      <div class="calc-text" id="calc-line">Weighing the evidence&hellip;</div>
+    </div>
+  </div>
+
+  <div id="screen-result" class="hidden">
+    <div class="cert" id="cert">
+      <p class="cert-eyebrow">Certificate of trace</p>
+      <p class="cert-intro-line">This is to certify that, upon examination of the particulars below, a trace of Sir Isaac Newton has been found in the subject, in the amount of</p>
+      <div class="result-word" id="result-word">&mdash;</div>
+      <div class="pct-row">
+        <span class="pct-num" id="result-pct">0%</span>
+        <span class="pct-label">trace strength</span>
+      </div>
+      <div class="best-badge hidden" id="best-badge">New personal best</div>
+      <div class="radar-wrap"><svg id="radarSvg" viewBox="0 0 240 210"></svg></div>
+      <p class="cert-provenance" id="cert-provenance"></p>
+      <p class="cert-date" id="cert-date"></p>
+      <div class="cert-seal">&#127822;</div>
+    </div>
+    <p class="result-copy" id="result-copy"></p>
+    <div class="btn-row">
+      <button class="btn" id="btn-download">Download certificate</button>
+      <button class="btn ghost" id="btn-again">Run it again</button>
+    </div>
+    <p class="fineprint">Obviously not genealogy &mdash; just a pattern-match against a famously stubborn 17th-century mind, with a small geographic nudge. Take it exactly as seriously as you like.</p>
+  </div>
+
+</div>
+
+<script src="quiz.js"></script>
+<script src="certificate.js"></script>
+</body>
+</html>
