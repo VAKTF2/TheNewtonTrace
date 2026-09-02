@@ -20,8 +20,6 @@ No backend, no build step, no dependencies beyond Google Fonts.
 
 `anticheat.js` times how long the quiz takes: the total time to finish all 16 questions, and how many individual answers came in under 300ms (too fast to have actually been read). Either one flags the run as **unverified** - it still produces a result, but it's excluded from the personal-best calculation and the UI says so.
 
-This is client-side timing friction, not a real guarantee - anyone editing the JS console can bypass it, since there's no backend acting as a source of truth. It's meant to catch casual tampering, not a determined one. Later versions can go further (e.g. tamper-evident checksums on saved history).
-
 ## Running it
 
 Open `index.html` in a browser. That's it.
