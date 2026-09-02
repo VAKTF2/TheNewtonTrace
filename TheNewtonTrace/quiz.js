@@ -196,22 +196,24 @@ async function loadHistory() {
   } catch (e) {
     history = [];
   }
-  if (history.length > 0) {
-    const best = Math.max(...history.map(h => h.pct));
+  const verifiedHistory = history.filter(h => h.verified !== false);
+  if (verifiedHistory.length > 0) {
+    const best = Math.max(...verifiedHistory.map(h => h.pct));
     const line = document.getElementById('best-trace-line');
     line.innerHTML = `Personal best so far: <strong>${best}%</strong> across ${history.length} attempt${history.length === 1 ? '' : 's'}.`;
     line.classList.remove('hidden');
   }
 }
 
-async function saveAttempt(pct, verdict) {
-  const prevBest = history.length ? Math.max(...history.map(h => h.pct)) : null;
-  history.push({ date: Date.now(), pct, verdict });
+async function saveAttempt(pct, verdict, verified) {
+  const verifiedHistory = history.filter(h => h.verified !== false);
+  const prevBest = verifiedHistory.length ? Math.max(...verifiedHistory.map(h => h.pct)) : null;
+  history.push({ date: Date.now(), pct, verdict, verified });
   if (history.length > 25) history = history.slice(history.length - 25);
   try {
     await window.storage.set('newton-quiz-attempts', JSON.stringify(history), false);
   } catch (e) { /* best effort only */ }
-  return prevBest !== null && pct > prevBest;
+  return verified && prevBest !== null && pct > prevBest;
 }
 
 // ---------- geo screen ----------
@@ -272,6 +274,7 @@ function startQuiz() {
   screenQuiz.classList.remove('hidden');
   initArc();
   setProgress(0);
+  AntiCheat.startQuiz();
   renderQuestion();
 }
 
@@ -287,6 +290,7 @@ function renderQuestion() {
     btn.addEventListener('click', () => selectOption(btn, pts, item.cat));
     qOptions.appendChild(btn);
   });
+  AntiCheat.startQuestion();
 }
 
 function selectOption(btn, pts, cat) {
@@ -294,6 +298,7 @@ function selectOption(btn, pts, cat) {
   btn.classList.add('chosen');
   score += pts;
   catScores[cat] += pts;
+  AntiCheat.recordAnswer();
 
   setTimeout(() => {
     current++;
@@ -377,9 +382,15 @@ async function showResult() {
   else copy = "Not even distant cousins, by this measure. You clearly enjoy company, sleep, and being told you're wrong — none of which he tolerated well.";
   document.getElementById('result-copy').textContent = copy;
 
-  const isNewBest = await saveAttempt(finalPct, isYes ? 'Yes' : 'No');
+  const timingCheck = AntiCheat.evaluate();
+  const isNewBest = await saveAttempt(finalPct, isYes ? 'Yes' : 'No', timingCheck.verified);
+
   const badge = document.getElementById('best-badge');
   if (isNewBest) badge.classList.remove('hidden'); else badge.classList.add('hidden');
+
+  const unverifiedNote = document.getElementById('unverified-note');
+  if (!timingCheck.verified) unverifiedNote.classList.remove('hidden');
+  else unverifiedNote.classList.add('hidden');
 }
 
 document.getElementById('btn-start').addEventListener('click', startGeo);
