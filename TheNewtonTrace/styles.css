@@ -119,6 +119,10 @@ svg#arc { width: 100%; height: 54px; display: block; }
   display: inline-block; font-size: 0.78rem; color: var(--crimson); border: 1px solid var(--crimson);
   padding: 3px 9px; border-radius: 20px; margin-bottom: 16px; font-style: italic;
 }
+.unverified-note {
+  font-size: 0.82rem; color: var(--ink-soft); font-style: italic;
+  border-left: 2px solid var(--gold); padding-left: 10px; margin: 0 0 16px;
+}
 .radar-wrap { display: flex; justify-content: center; margin: 8px 0 14px; }
 #radarSvg { width: 220px; height: 200px; }
 .radar-grid { fill: none; stroke: rgba(41,36,28,0.25); stroke-width: 1; }
