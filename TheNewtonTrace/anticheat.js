@@ -1,8 +1,4 @@
 // anticheat.js — a first, simple pass at detecting non-human-speed runs.
-// This is client-side timing friction, not a real guarantee: anyone editing
-// the JS console can bypass it. It exists to catch casual tampering and
-// mark suspect results as unverified rather than silently trusting them.
-// A later version can go further (e.g. tamper-evident checksums on saved history).
 
 const AntiCheat = (function () {
   const MIN_QUESTION_MS = 300;   // fastest plausible time to read + decide on one question
